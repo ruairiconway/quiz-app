@@ -1,29 +1,109 @@
 /**
- * Example store structure
+ * Store structure
  */
 const store = {
   // 5 or more questions are required
   questions: [
-    {
-      question: 'What color is broccoli?',
+    { // Q1
+      question: "Hansen's disease is more commonly known by what name?",
       answers: [
-        'red',
-        'orange',
-        'pink',
-        'green'
+        "Appendicitus",
+        "Leprosy",
+        "Arthritis",
+        "Vertigo"
       ],
-      correctAnswer: 'green'
+      correctAnswer: "Leprosy"
     },
-    {
-      question: 'What is the current year?',
+    { // Q2
+      question: "Botany is the study of what life form?",
       answers: [
-        '1970',
-        '2015',
-        '2019',
-        '2005'
+        "Mammals",
+        "Plants",
+        "Insects",
+        "crustaceans"
       ],
-      correctAnswer: '2019'
-    }
+      correctAnswer: "Plants"
+    },
+    { // Q3
+      question: "What is the human body’s largest organ?",
+      answers: [
+        "Liver",
+        "Brain",
+        "Skin",
+        "Intestines"
+      ],
+      correctAnswer: "Skin"
+    },
+    { // Q4
+      question: "How many neck vertebrae do giraffes have?",
+      answers: [
+        "7",
+        "25",
+        "14",
+        "19"
+      ],
+      correctAnswer: "7"
+    },
+    { // Q5
+      question: "What part of the human body is the Mandible?",
+      answers: [
+        "Inner Ear",
+        "Jawbone",
+        "Hip",
+        "Ankle"
+      ],
+      correctAnswer: "Jawbone"
+    },
+    { // Q6
+      question: "How many bones does an adult human have?",
+      answers: [
+        "106",
+        "376",
+        "76",
+        "206"
+      ],
+      correctAnswer: "206"
+    },
+    { // Q7
+      question: "Heterochromia results in what difference of physical appearance?",
+      answers: [
+        "Eye Color",
+        "Arm Length",
+        "Ear Shape",
+        "Leg Length"
+      ],
+      correctAnswer: "Eye Color"
+    },
+    { // Q8
+      question: "Which microbiologist discovered the process of pasteurisation?",
+      answers: [
+        "Alexander Hamilton",
+        "Alexander Fleming",
+        "Louis Pasteur",
+        "Tom Cruise"
+      ],
+      correctAnswer: "Louis Pasteur"
+    },
+    { // Q9
+      question: "What year was the first animal cloned?",
+      answers: [
+        "2010",
+        "2003",
+        "1999",
+        "1996"
+      ],
+      correctAnswer: "1996"
+    },
+    { // Q10
+      question: "How many millions of species are estimated to live on Earth?",
+      answers: [
+        "8.7",
+        "24.4",
+        "13.6",
+        "1.2"
+      ],
+      correctAnswer: "8.7"
+    }   
   ],
   quizStarted: false,
   questionNumber: 0,
