@@ -106,6 +106,7 @@ const store = {
     }   
   ],
   quizStarted: false,
+  submittingAnswer: false,
   questionNumber: 0,
   score: 0
 };
@@ -129,10 +130,109 @@ const store = {
 
 // These functions return HTML templates
 
+function generateQuizStartString() {
+  // this function will generate the html content for the quiz start
+  return `
+    <div>
+      <form>
+        <h2>Ready when you are!</h2>
+        <button type="submit" id="start-button">Start Quiz</button>
+      </form>
+    </div>`;
+}
+
+function generateQuizQuestionString(currentObject) {
+  // this function will generate the html content for the quiz question prompt
+  return `
+  <div>
+    <div>
+      <p>${currentObject.currentIndex} / ${store.questions.length}</p>
+    </div>
+    <div>
+      <p>${currentObject.question}</p>
+    </div>
+    <ul>
+      
+    </ul>
+  </div>`;
+}
+
+function generateAnswerString() {
+  //this function creates the answer portion of the form
+
+}
+
 /********** RENDER FUNCTION(S) **********/
 
 // This function conditionally replaces the contents of the <main> tag based on the state of the store
 
+function renderQuiz() {
+  console.log('rendered quiz');
+
+  if (store.quizStarted === false) {
+    const startString = generateQuizStartString();
+    $('main').html(startString);
+    };
+
+  if (store.quizStarted === true) {
+    if (store.submittingAnswer === false) {
+      const questionString = generateQuizQuestionString(currentQuestion());
+      $('main').html(questionString);
+    }
+  }
+
+}
+
+function startQuiz() {
+  console.log('Quiz started');
+  store.quizStarted = true;
+}
+
+function currentQuestion() {
+  console.log('setting up new question');
+  const currentIndex = store.questionNumber;
+  const currentObject = store.questions[currentIndex];
+  console.log(currentObject);
+  return currentObject;
+}
+
+
 /********** EVENT HANDLER FUNCTIONS **********/
 
 // These functions handle events (submit, click, etc)
+
+function handleQuiz() {
+  renderQuiz();
+  handleQuizStart();
+  handleQuizSubmitAnswer();
+  handleQuizNextQuestion();
+  handleQuizSeeResults();
+  handleQuizRestart();
+}
+
+function handleQuizStart() {
+  //this function will handle the quiz when the start button is pressed
+  $('#start-button').on('click', function(event) {
+    event.preventDefault();
+    startQuiz();
+    renderQuiz();
+  });
+}
+
+function handleQuizSubmitAnswer() {
+  //this function will handle the quiz when an answer is clicked
+}
+
+function handleQuizNextQuestion() {
+  //this function will handle the quiz when 'next question' is clicked
+}
+
+function handleQuizSeeResults() {
+  //this function will handle the end of the quiz when the last question is submitted
+}
+
+function handleQuizRestart() {
+  //this function will handle the quiz when the 'try again' button is pressed
+}
+
+$(handleQuiz);
