@@ -1,7 +1,7 @@
 /**
  * Store structure
  */
-const store = {
+let store = {
   // 5 or more questions are required
   questions: [
     { // Q1
@@ -143,6 +143,7 @@ function generateQuizStartString() {
 
 function generateQuizQuestionString(currentObject) {
   // this function will generate the html content for the quiz question prompt
+  
   return `
   <div>
     <div>
@@ -151,15 +152,28 @@ function generateQuizQuestionString(currentObject) {
     <div>
       <p>${currentObject.question}</p>
     </div>
-    <ul>
-      
-    </ul>
+    <form>
+      <ul>
+        ${generateAnswerList(currentObject.answers)}
+      </ul>
+      <div>
+        <button type="submit" id="check-answer">Check Answer</button>
+      </div>
+    </form>
+    <div>
+      <p>0 points</p>
+    </div>
   </div>`;
 }
 
-function generateAnswerString() {
-  //this function creates the answer portion of the form
-
+function generateAnswerList(answerList){
+//create array of answers
+  let answers = answerList;
+  let answerString = '';
+  answers.forEach(function(answer) {
+    answerString += '<li><label><input type="radio" name="answers" value="' + answer + '">' + answer + '</label></li>';
+  });
+  return answerString;
 }
 
 /********** RENDER FUNCTION(S) **********/
@@ -170,13 +184,13 @@ function renderQuiz() {
   console.log('rendered quiz');
 
   if (store.quizStarted === false) {
-    const startString = generateQuizStartString();
+    let startString = generateQuizStartString();
     $('main').html(startString);
     };
 
   if (store.quizStarted === true) {
     if (store.submittingAnswer === false) {
-      const questionString = generateQuizQuestionString(currentQuestion());
+      let questionString = generateQuizQuestionString(currentQuestion());
       $('main').html(questionString);
     }
   }
@@ -190,8 +204,8 @@ function startQuiz() {
 
 function currentQuestion() {
   console.log('setting up new question');
-  const currentIndex = store.questionNumber;
-  const currentObject = store.questions[currentIndex];
+  let currentIndex = store.questionNumber;
+  let currentObject = store.questions[currentIndex];
   console.log(currentObject);
   return currentObject;
 }
