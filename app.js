@@ -214,7 +214,7 @@ function generateFeedbackList(validateList) {
     if (answer === validateList.correctAnswer) {
       validateString += `
         <li>
-          <label class="correct-answer-green">
+          <label class="correct-answer">
             <input type="radio" name="answers" value="` + answer + `" disabled>`
             + answer +
           `</label>
@@ -223,7 +223,7 @@ function generateFeedbackList(validateList) {
     else {
       validateString += `
         <li>
-          <label class="incorrect-answer-red">
+          <label class="incorrect-answer">
             <input type="radio" name="answers" value="` + answer + `" disabled>`
             + answer +
           `</label>
