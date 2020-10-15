@@ -42,9 +42,9 @@ Using provided html boilerplate and js object array, I built out a quiz app whic
 NO PEEKING
 
 **1.**
-Q: Hansen’s disease is more commonly known by which name?
-O: Appendicitus, Leprosy, Arthritis, Vertigo
-A: Leprosy
+- Q: Hansen’s disease is more commonly known by which name?
+- O: Appendicitus, Leprosy, Arthritis, Vertigo
+- A: Leprosy
 
 **2.**
 Q: Botany is the study of what life form?
