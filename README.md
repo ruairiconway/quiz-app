@@ -12,8 +12,8 @@ Using provided html boilerplate and js object array, I built out a quiz app whic
 - Code :: https://github.com/ruairiconway/quiz-app-wireframe
 - Live :: https://ruairiconway.github.io/quiz-app-wireframe/
 
-**Exercise Requirements:**<br>
-UX:
+### Exercise Requirements:
+**UX**
 - The starting screen should have a button that users can click to start the quiz.
 - Users should be prompted through a series of at least 5 multiple choice questions that they can answer.
 - Users should be asked questions 1 after the other.
@@ -26,7 +26,7 @@ UX:
 - Users should be shown their overall score at the end of the quiz. In other words, how many questions they got right out of the total questions asked.
 - Users should be able to start a new quiz.
 
-Technical:
+**Technical**
 - Include a render() function, that conditionally regenerates the view each time the store is updated.
 - Include single-purpose template generation functions.
 - Include single-purpose event handler functions.
