@@ -103,7 +103,7 @@ let store = {
         "1.2"
       ],
       correctAnswer: "8.7"
-    }   
+    }
   ],
   quizStarted: false,
   submittingAnswer: false,
@@ -205,10 +205,22 @@ function generateFeedbackList(validateList) {
   let validateString = '';
   (validateList.answers).forEach(function(answer) {
     if (answer === validateList.correctAnswer) {
-      validateString += '<li><label class="correct-answer-green"><input type="radio" name="answers" value="' + answer + '" disabled>' + answer + '</label></li>';
+      validateString += `
+        <li>
+          <label class="correct-answer-green">
+            <input type="radio" name="answers" value="` + answer + `" disabled>`
+            + answer +
+          `</label>
+        </li>`;
     }
     else {
-      validateString += '<li><label class="incorrect-answer-red"><input type="radio" name="answers" value="' + answer + '" disabled>' + answer + '</label></li>';
+      validateString += `
+        <li>
+          <label class="incorrect-answer-red">
+            <input type="radio" name="answers" value="` + answer + `" disabled>`
+            + answer +
+          `</label>
+        </li>`;
     }
   });
   return validateString;
@@ -229,6 +241,20 @@ function generateAnswerFeedback() {
   }
 }
 
+function generateQuizEndString() {
+  return `
+  <div>
+    <div>
+      <p>Thanks for taking the quiz!</p>
+      <p>How did you do?</p>
+      <p>${store.score} / ${store.questions.length * 5}</p>
+    <div>
+    <div>
+      <button type="button" id="reset-button">Try Again</button>
+    </div>
+  </div>`
+}
+
 /********** RENDER FUNCTION(S) **********/
 
 // This function conditionally replaces the contents of the <main> tag based on the state of the store
@@ -242,7 +268,7 @@ function renderQuiz() {
       $('main').html(startString);
     }
     if (store.submittingAnswer === true) {
-      let endString = generateQuizResultsString();
+      let endString = generateQuizEndString();
       $('main').html(endString);
     }
   }
@@ -258,6 +284,13 @@ function renderQuiz() {
     }
   }
 
+}
+
+function setStartConditions() {
+  store.quizStarted = false;
+  store.submittingAnswer = false;
+  store.questionNumber = 0;
+  store.score = 0;
 }
 
 function setPromptConditions() {
@@ -285,18 +318,6 @@ function currentQuestion() {
   return indexAndObject;
 }
 
-function nextQuestion() {
-  if (store.questionNumber < store.questions.length) {
-    console.log('next question');
-    store.questionNumber += 1;
-    setPromptConditions();
-  }
-  else if (store.questionNumber === store.questions.length) {
-    console.log('quiz end')
-    setEndConditions();
-  }
-}
-
 function validateSubmission() {
   console.log('validate submission');
   let answerOptions = $('input:radio[name=answers]');
@@ -310,13 +331,24 @@ function validateSubmission() {
   }
   else {
     if (answerChoice === correctAnswer) {
-      store.score += 1;
+      store.score += 5;
     }
     setSubmitConditions();
     renderQuiz();
   }
 }
 
+function nextQuestion() {
+  if (store.questionNumber + 1 < store.questions.length) {
+    console.log('next question');
+    store.questionNumber += 1;
+    setPromptConditions();
+  }
+  else if (store.questionNumber + 1 === store.questions.length) {
+    console.log('quiz end')
+    setEndConditions();
+  }
+}
 
 /********** EVENT HANDLER FUNCTIONS **********/
 
@@ -327,7 +359,6 @@ function handleQuiz() {
   handleQuizStart();
   handleQuizValidateQuestion();
   handleQuizNextQuestion();
-  handleQuizSeeResults();
   handleQuizRestart();
 }
 
@@ -358,12 +389,13 @@ function handleQuizNextQuestion() {
   });
 }
 
-function handleQuizSeeResults() {
-  //this function will handle the end of the quiz when the last question is submitted
-}
-
 function handleQuizRestart() {
   //this function will handle the quiz when the 'try again' button is pressed
+  $('main').on('click', '#reset-button', function(event) {
+    event.preventDefault();
+    setStartConditions();
+    renderQuiz();
+  });
 }
 
 $(handleQuiz);
