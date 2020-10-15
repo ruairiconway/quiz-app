@@ -174,7 +174,7 @@ function generateAnswerList(answerList) {
   return answerString;
 }
 
-function generateQuizValidateString(indexAndObject) {
+function generateQuizValidateString(indexAndObject, buttonType) {
   // this function will generate the html content for the quiz question validation
   return `
   <div>
@@ -189,7 +189,7 @@ function generateQuizValidateString(indexAndObject) {
         ${generateFeedbackList(indexAndObject.object)}
       </ul>
       <div>
-        <button type="button" id="next-question-button">Next Question</button>
+        ${generateButtonType()}
       </div>
     </form>
     <div>
@@ -224,6 +224,15 @@ function generateFeedbackList(validateList) {
     }
   });
   return validateString;
+}
+
+function generateButtonType() {
+  if (store.questionNumber + 1 < store.questions.length) {
+    return `<button type="button" id="next-question-button">Next Question</button>`
+  }
+  if (store.questionNumber + 1 === store.questions.length) {
+    return `<button type="button" id="next-question-button">See Results</button>`
+  }
 }
 
 function generateAnswerFeedback() {
