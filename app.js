@@ -141,7 +141,7 @@ function generateQuizStartString() {
     </div>`;
 }
 
-function generateQuizQuestionString(indexAndObject, currentScore) {
+function generateQuizQuestionString(indexAndObject) {
   // this function will generate the html content for the quiz question prompt
   return `
   <div>
@@ -174,7 +174,7 @@ function generateAnswerList(answerList) {
   return answerString;
 }
 
-function generateQuizValidateString(indexAndObject, submittedAnswer) {
+function generateQuizValidateString(indexAndObject) {
   // this function will generate the html content for the quiz question validation
   return `
   <div>
@@ -186,7 +186,7 @@ function generateQuizValidateString(indexAndObject, submittedAnswer) {
     </div>
     <form>
       <ul>
-        ${generateValidateList(indexAndObject.object)}
+        ${generateFeedbackList(indexAndObject.object)}
       </ul>
       <div>
         <button type="button" id="next-question-button">Next Question</button>
@@ -196,12 +196,12 @@ function generateQuizValidateString(indexAndObject, submittedAnswer) {
       <p>${store.score} pts</p>
     </div>
     <div>
-      <p>Correct answer = ${indexAndObject.object.correctAnswer}</p>
+      ${generateAnswerFeedback()}
     </div>
   </div>`;
 }
 
-function generateValidateList(validateList) {
+function generateFeedbackList(validateList) {
   let validateString = '';
   (validateList.answers).forEach(function(answer) {
     if (answer === validateList.correctAnswer) {
@@ -214,6 +214,21 @@ function generateValidateList(validateList) {
   return validateString;
 }
 
+function generateAnswerFeedback() {
+  let answerChoice = $('input[name="answers"]:checked').val();
+  let questionIndex = store.questionNumber;
+  let correctAnswer = store.questions[questionIndex].correctAnswer;
+
+  if (answerChoice === correctAnswer) {
+    let feedbackString = `<p>You chose ${answerChoice}, that's correct!</p>`;
+    return feedbackString;
+  }
+  else {
+    let feedbackString = `<p>You chose ${answerChoice}, the correct answer was ${correctAnswer}!</p>`;
+    return feedbackString;
+  }
+}
+
 /********** RENDER FUNCTION(S) **********/
 
 // This function conditionally replaces the contents of the <main> tag based on the state of the store
@@ -222,9 +237,15 @@ function renderQuiz() {
   console.log('rendered quiz');
 
   if (store.quizStarted === false) {
-    let startString = generateQuizStartString();
-    $('main').html(startString);
+    if (store.submittingAnswer === false) {
+      let startString = generateQuizStartString();
+      $('main').html(startString);
     }
+    if (store.submittingAnswer === true) {
+      let endString = generateQuizResultsString();
+      $('main').html(endString);
+    }
+  }
 
   if (store.quizStarted === true) {
     if (store.submittingAnswer === false) {
@@ -251,19 +272,7 @@ function setSubmitConditions() {
 
 function setEndConditions() {
   store.quizStarted = false;
-  store.submittingAnswer = false;
-}
-
-function nextQuestion() {
-  console.log('next question');
-  if (store.questionNumber < store.questions.length) {
-    store.questionNumber += 1;
-    setPromptConditions();
-  }
-  else {
-    setEndConditions();
-  }
-  
+  store.submittingAnswer = true;
 }
 
 function currentQuestion() {
@@ -274,6 +283,18 @@ function currentQuestion() {
     object: currentObject
   };
   return indexAndObject;
+}
+
+function nextQuestion() {
+  if (store.questionNumber < store.questions.length) {
+    console.log('next question');
+    store.questionNumber += 1;
+    setPromptConditions();
+  }
+  else if (store.questionNumber === store.questions.length) {
+    console.log('quiz end')
+    setEndConditions();
+  }
 }
 
 function validateSubmission() {
@@ -289,13 +310,12 @@ function validateSubmission() {
   }
   else {
     if (answerChoice === correctAnswer) {
-      store.score += 10;
+      store.score += 1;
     }
     setSubmitConditions();
     renderQuiz();
   }
 }
-
 
 
 /********** EVENT HANDLER FUNCTIONS **********/
