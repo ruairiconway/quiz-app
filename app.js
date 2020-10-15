@@ -254,7 +254,7 @@ function generateAnswerFeedback() {
     return feedbackString;
   }
   else {
-    let feedbackString = `<p>You chose ${answerChoice}, the correct answer was ${correctAnswer}!</p>`;
+    let feedbackString = `<p>You chose ${answerChoice}</p><p>The correct answer was ${correctAnswer}</p>`;
     return feedbackString;
   }
 }
