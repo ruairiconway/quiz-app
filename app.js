@@ -136,14 +136,13 @@ function generateQuizStartString() {
     <div>
       <form>
         <h2>Ready when you are!</h2>
-        <button type="submit" id="start-button">Start Quiz</button>
+        <button type="button" id="start-button">Start Quiz</button>
       </form>
     </div>`;
 }
 
-function generateQuizQuestionString(indexAndObject) {
+function generateQuizQuestionString(indexAndObject, currentScore) {
   // this function will generate the html content for the quiz question prompt
-  
   return `
   <div>
     <div>
@@ -157,11 +156,11 @@ function generateQuizQuestionString(indexAndObject) {
         ${generateAnswerList(indexAndObject.object.answers)}
       </ul>
       <div>
-        <button type="submit" id="check-answer">Check Answer</button>
+        <button type="button" id="validate-button">Check Answer</button>
       </div>
     </form>
     <div>
-      <p>0 points</p>
+      <p>${store.score} pts</p>
     </div>
   </div>`;
 }
@@ -175,6 +174,46 @@ function generateAnswerList(answerList) {
   return answerString;
 }
 
+function generateQuizValidateString(indexAndObject, submittedAnswer) {
+  // this function will generate the html content for the quiz question validation
+  return `
+  <div>
+    <div>
+      <p>${indexAndObject.index} / ${store.questions.length}</p>
+    </div>
+    <div>
+      <p>${indexAndObject.object.question}</p>
+    </div>
+    <form>
+      <ul>
+        ${generateValidateList(indexAndObject.object)}
+      </ul>
+      <div>
+        <button type="button" id="next-question-button">Next Question</button>
+      </div>
+    </form>
+    <div>
+      <p>${store.score} pts</p>
+    </div>
+    <div>
+      <p>Correct answer = ${indexAndObject.object.correctAnswer}</p>
+    </div>
+  </div>`;
+}
+
+function generateValidateList(validateList) {
+  let validateString = '';
+  (validateList.answers).forEach(function(answer) {
+    if (answer === validateList.correctAnswer) {
+      validateString += '<li><label class="correct-answer-green"><input type="radio" name="answers" value="' + answer + '" disabled>' + answer + '</label></li>';
+    }
+    else {
+      validateString += '<li><label class="incorrect-answer-red"><input type="radio" name="answers" value="' + answer + '" disabled>' + answer + '</label></li>';
+    }
+  });
+  return validateString;
+}
+
 /********** RENDER FUNCTION(S) **********/
 
 // This function conditionally replaces the contents of the <main> tag based on the state of the store
@@ -185,24 +224,49 @@ function renderQuiz() {
   if (store.quizStarted === false) {
     let startString = generateQuizStartString();
     $('main').html(startString);
-    };
+    }
 
   if (store.quizStarted === true) {
     if (store.submittingAnswer === false) {
       let questionString = generateQuizQuestionString(currentQuestion());
       $('main').html(questionString);
     }
+    if (store.submittingAnswer === true) {
+      let validateString = generateQuizValidateString(currentQuestion());
+      $('main').html(validateString);
+    }
   }
 
 }
 
-function startQuiz() {
-  console.log('Quiz started');
+function setPromptConditions() {
   store.quizStarted = true;
+  store.submittingAnswer = false;
+}
+
+function setSubmitConditions() {
+  store.quizStarted = true;
+  store.submittingAnswer = true;
+}
+
+function setEndConditions() {
+  store.quizStarted = false;
+  store.submittingAnswer = false;
+}
+
+function nextQuestion() {
+  console.log('next question');
+  if (store.questionNumber < store.questions.length) {
+    store.questionNumber += 1;
+    setPromptConditions();
+  }
+  else {
+    setEndConditions();
+  }
+  
 }
 
 function currentQuestion() {
-  console.log('setting up new question');
   let currentIndex = store.questionNumber;
   let currentObject = store.questions[currentIndex];
   let indexAndObject = {
@@ -212,6 +276,27 @@ function currentQuestion() {
   return indexAndObject;
 }
 
+function validateSubmission() {
+  console.log('validate submission');
+  let answerOptions = $('input:radio[name=answers]');
+  let answerChoice = $('input[name="answers"]:checked').val();
+  let questionIndex = store.questionNumber;
+  let correctAnswer = store.questions[questionIndex].correctAnswer;
+
+  if (answerOptions.filter(':checked').length === 0) {
+    alert('Please select an answer.');
+    return;
+  }
+  else {
+    if (answerChoice === correctAnswer) {
+      store.score += 10;
+    }
+    setSubmitConditions();
+    renderQuiz();
+  }
+}
+
+
 
 /********** EVENT HANDLER FUNCTIONS **********/
 
@@ -220,7 +305,7 @@ function currentQuestion() {
 function handleQuiz() {
   renderQuiz();
   handleQuizStart();
-  handleQuizSubmitAnswer();
+  handleQuizValidateQuestion();
   handleQuizNextQuestion();
   handleQuizSeeResults();
   handleQuizRestart();
@@ -228,19 +313,29 @@ function handleQuiz() {
 
 function handleQuizStart() {
   //this function will handle the quiz when the start button is pressed
-  $('#start-button').on('click', function(event) {
+  $('main').on('click', '#start-button', function(event) {
+    console.log('quiz started');
     event.preventDefault();
-    startQuiz();
+    setPromptConditions();
     renderQuiz();
   });
 }
 
-function handleQuizSubmitAnswer() {
+function handleQuizValidateQuestion() {
   //this function will handle the quiz when an answer is clicked
+  $('main').on('click', '#validate-button', function(event) {
+    event.preventDefault();
+    validateSubmission();
+  });
 }
 
 function handleQuizNextQuestion() {
   //this function will handle the quiz when 'next question' is clicked
+  $('main').on('click', '#next-question-button', function(event) {
+    event.preventDefault();
+    nextQuestion();
+    renderQuiz();
+  });
 }
 
 function handleQuizSeeResults() {

@@ -6,3 +6,15 @@
   * https://github.com/andreacardybailey/responsive_example/blob/master/styles/responsive-base.css 
   *
 */
+
+ul {
+  list-style-type: none;
+}
+
+.correct-answer-green {
+  color: green;
+}
+
+.incorrect-answer-red {
+  color: red;
+}
