@@ -131,7 +131,7 @@ let store = {
 // These functions return HTML templates
 
 function generateQuizStartString() {
-  // this function will generate the html content for the quiz start
+  // Generate main html content for the quiz landing page
   return `
     <div>
       <form>
@@ -142,7 +142,7 @@ function generateQuizStartString() {
 }
 
 function generateQuizQuestionString(indexAndObject) {
-  // this function will generate the html content for the quiz question prompt
+  // Generate main html structure for the PROMPT question + answers
   return `
   <div>
     <div>
@@ -166,16 +166,22 @@ function generateQuizQuestionString(indexAndObject) {
 }
 
 function generateAnswerList(answerList) {
-//create array of answers
+  // Generate list of PROMPT answers
   let answerString = '';
   answerList.forEach(function(answer) {
-    answerString += '<li><label><input type="radio" name="answers" value="' + answer + '">' + answer + '</label></li>';
+    answerString += `
+    <li>
+      <label>
+        <input type="radio" name="answers" value="` + answer + `">`
+        + answer +
+      `</label>
+    </li>`;
   });
   return answerString;
 }
 
 function generateQuizValidateString(indexAndObject, buttonType) {
-  // this function will generate the html content for the quiz question validation
+  // Generate main html structure for the GRADED question + answers
   return `
   <div>
     <div>
@@ -202,6 +208,7 @@ function generateQuizValidateString(indexAndObject, buttonType) {
 }
 
 function generateFeedbackList(validateList) {
+  // Generate list of GRADED answers
   let validateString = '';
   (validateList.answers).forEach(function(answer) {
     if (answer === validateList.correctAnswer) {
@@ -227,6 +234,7 @@ function generateFeedbackList(validateList) {
 }
 
 function generateButtonType() {
+  // Generate 'See Results' button on last question
   if (store.questionNumber + 1 < store.questions.length) {
     return `<button type="button" id="next-question-button">Next Question</button>`
   }
@@ -236,6 +244,7 @@ function generateButtonType() {
 }
 
 function generateAnswerFeedback() {
+  // Generate feedback based on correct/incorrect answer submission
   let answerChoice = $('input[name="answers"]:checked').val();
   let questionIndex = store.questionNumber;
   let correctAnswer = store.questions[questionIndex].correctAnswer;
@@ -251,6 +260,7 @@ function generateAnswerFeedback() {
 }
 
 function generateQuizEndString() {
+  // generate main html content for the quiz results
   return `
   <div>
     <div>
@@ -266,27 +276,28 @@ function generateQuizEndString() {
 
 /********** RENDER FUNCTION(S) **********/
 
-// This function conditionally replaces the contents of the <main> tag based on the state of the store
-
 function renderQuiz() {
+  // Conditionally replaces the contents of the <main> tag based on the state of the store
   console.log('rendered quiz');
-
   if (store.quizStarted === false) {
+    // start condition
     if (store.submittingAnswer === false) {
       let startString = generateQuizStartString();
       $('main').html(startString);
     }
+    // end condition
     if (store.submittingAnswer === true) {
       let endString = generateQuizEndString();
       $('main').html(endString);
     }
   }
-
   if (store.quizStarted === true) {
+    // prompt condition
     if (store.submittingAnswer === false) {
       let questionString = generateQuizQuestionString(currentQuestion());
       $('main').html(questionString);
     }
+    // validating/grading condition
     if (store.submittingAnswer === true) {
       let validateString = generateQuizValidateString(currentQuestion());
       $('main').html(validateString);
@@ -296,6 +307,7 @@ function renderQuiz() {
 }
 
 function setStartConditions() {
+  // Set store values for start condition and reset
   store.quizStarted = false;
   store.submittingAnswer = false;
   store.questionNumber = 0;
@@ -303,21 +315,25 @@ function setStartConditions() {
 }
 
 function setPromptConditions() {
+  // Set store values for prompt condition
   store.quizStarted = true;
   store.submittingAnswer = false;
 }
 
 function setSubmitConditions() {
+  // Set store values for validation/grading condition
   store.quizStarted = true;
   store.submittingAnswer = true;
 }
 
 function setEndConditions() {
+  // Set store values for end condition
   store.quizStarted = false;
   store.submittingAnswer = true;
 }
 
 function currentQuestion() {
+  // render variables for generateQuizQuestion/ValidateString
   let currentIndex = store.questionNumber;
   let currentObject = store.questions[currentIndex];
   let indexAndObject = {
@@ -328,6 +344,7 @@ function currentQuestion() {
 }
 
 function validateSubmission() {
+  // Confirms an input is submitted and triggers grading
   console.log('validate submission');
   let answerOptions = $('input:radio[name=answers]');
   let answerChoice = $('input[name="answers"]:checked').val();
@@ -348,6 +365,7 @@ function validateSubmission() {
 }
 
 function nextQuestion() {
+  // iterates through store questions and triggers end condition on last question
   if (store.questionNumber + 1 < store.questions.length) {
     console.log('next question');
     store.questionNumber += 1;
