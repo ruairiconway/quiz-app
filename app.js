@@ -141,20 +141,20 @@ function generateQuizStartString() {
     </div>`;
 }
 
-function generateQuizQuestionString(currentObject) {
+function generateQuizQuestionString(indexAndObject) {
   // this function will generate the html content for the quiz question prompt
   
   return `
   <div>
     <div>
-      <p>${currentObject.currentIndex} / ${store.questions.length}</p>
+      <p>${indexAndObject.index} / ${store.questions.length}</p>
     </div>
     <div>
-      <p>${currentObject.question}</p>
+      <p>${indexAndObject.object.question}</p>
     </div>
     <form>
       <ul>
-        ${generateAnswerList(currentObject.answers)}
+        ${generateAnswerList(indexAndObject.object.answers)}
       </ul>
       <div>
         <button type="submit" id="check-answer">Check Answer</button>
@@ -166,11 +166,10 @@ function generateQuizQuestionString(currentObject) {
   </div>`;
 }
 
-function generateAnswerList(answerList){
+function generateAnswerList(answerList) {
 //create array of answers
-  let answers = answerList;
   let answerString = '';
-  answers.forEach(function(answer) {
+  answerList.forEach(function(answer) {
     answerString += '<li><label><input type="radio" name="answers" value="' + answer + '">' + answer + '</label></li>';
   });
   return answerString;
@@ -206,8 +205,11 @@ function currentQuestion() {
   console.log('setting up new question');
   let currentIndex = store.questionNumber;
   let currentObject = store.questions[currentIndex];
-  console.log(currentObject);
-  return currentObject;
+  let indexAndObject = {
+    index: currentIndex + 1,
+    object: currentObject
+  };
+  return indexAndObject;
 }
 
 
