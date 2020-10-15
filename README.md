@@ -39,7 +39,7 @@ Using provided html boilerplate and js object array, I built out a quiz app whic
 
 
 ### Biology Pub Quiz Question List
-NO PEEKING
+NO PEEKING BEFORE YOU TAKE IT!
 
 **1.**
 - Q: Hansen’s disease is more commonly known by which name?
