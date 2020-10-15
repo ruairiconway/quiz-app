@@ -12,7 +12,7 @@ Using provided html boilerplate and js object array, I built out a quiz app whic
 - Code :: https://github.com/ruairiconway/quiz-app-wireframe
 - Live :: https://ruairiconway.github.io/quiz-app-wireframe/
 
-**Exercise Requirements:**
+**Exercise Requirements:**<br>
 UX:
 - The starting screen should have a button that users can click to start the quiz.
 - Users should be prompted through a series of at least 5 multiple choice questions that they can answer.
