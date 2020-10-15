@@ -5,12 +5,12 @@
 Using provided html boilerplate and js object array, I built out a quiz app which needed to be accessible, keyboard friendly, and meet a11y standards.
 
 **Live Build**
-Code - https://github.com/ruairiconway/quiz-app
-Live - https://ruairiconway.github.io/quiz-app/
+- Code :: https://github.com/ruairiconway/quiz-app
+- Live :: https://ruairiconway.github.io/quiz-app/
 
 **Wireframe**
-Code - https://github.com/ruairiconway/quiz-app-wireframe
-Live - https://ruairiconway.github.io/quiz-app-wireframe/
+- Code :: https://github.com/ruairiconway/quiz-app-wireframe
+- Live :: https://ruairiconway.github.io/quiz-app-wireframe/
 
 **Exercise Requirements:**
 UX:
