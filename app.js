@@ -133,7 +133,7 @@ let store = {
 function generateQuizStartString() {
   // Generate main html content for the quiz landing page
   return `
-  <div class="start-content-wrapper">
+  <div class="flex-wrapper">
     <h2>Ready when you are!</h2>
     <button type="button" id="start-button">Start Quiz</button>
   </div>`;
@@ -142,16 +142,18 @@ function generateQuizStartString() {
 function generateQuizQuestionString(indexAndObject) {
   // Generate main html structure for the PROMPT question + answers
   return `
-  <div class="quiz-content-wrapper">
-    <p>${indexAndObject.index} / ${store.questions.length}</p>
-    <p>${indexAndObject.object.question}</p>
-    <form>
-      <ul>
-        ${generateAnswerList(indexAndObject.object.answers)}
-      </ul>
+  <div class="flex-wrapper">
+    <div class="quiz-content-wrapper">
+      <p>${indexAndObject.index} / ${store.questions.length}</p>
+      <p class="question">${indexAndObject.object.question}</p>
+      <form>
+        <ul>
+          ${generateAnswerList(indexAndObject.object.answers)}
+        </ul>
+      </form>
       <button type="button" id="validate-button">Check Answer</button>
-    </form>
-    <p>${store.score} pts</p>
+      <p>${store.score} pts</p>
+    </div>
   </div>`;
 }
 
@@ -170,49 +172,20 @@ function generateAnswerList(answerList) {
   return answerString;
 }
 
-function generateQuizValidateString(indexAndObject, buttonType) {
+function generateQuizValidateString(indexAndObject) {
   // Generate main html structure for the GRADED question + answers
   return `
-  <div class="quiz-content-wrapper">
-    <p>${indexAndObject.index} / ${store.questions.length}</p>
-    <p>${indexAndObject.object.question}</p>
-    <form>
-      <ul>
-        ${generateFeedbackList(indexAndObject.object)}
-      </ul>
-      <div>
-        ${generateButtonType()}
-      </div>
-    </form>
-    <p>${store.score} pts</p>
-    ${generateAnswerFeedback()}
+  <div class="flex-wrapper">
+    <div class="quiz-content-wrapper">
+      <p>${indexAndObject.index} / ${store.questions.length}</p>
+      <p class="question">${indexAndObject.object.question}</p>
+      <form>
+        ${generateAnswerFeedback()}
+      </form>
+      ${generateButtonType()}
+      <p>${store.score} pts</p>
+    </div>
   </div>`;
-}
-
-function generateFeedbackList(validateList) {
-  // Generate list of GRADED answers
-  let validateString = '';
-  (validateList.answers).forEach(function(answer) {
-    if (answer === validateList.correctAnswer) {
-      validateString += `
-        <li>
-          <label class="correct-answer">
-            <input type="radio" name="answers" value="` + answer + `" disabled>`
-            + answer +
-          `</label>
-        </li>`;
-    }
-    else {
-      validateString += `
-        <li>
-          <label class="incorrect-answer">
-            <input type="radio" name="answers" value="` + answer + `" disabled>`
-            + answer +
-          `</label>
-        </li>`;
-    }
-  });
-  return validateString;
 }
 
 function generateButtonType() {
@@ -232,11 +205,15 @@ function generateAnswerFeedback() {
   let correctAnswer = store.questions[questionIndex].correctAnswer;
 
   if (answerChoice === correctAnswer) {
-    let feedbackString = `<p>You chose ${answerChoice}, that's correct!</p>`;
+    let feedbackString = `
+    <p>You said ${answerChoice}</p>
+    <p>That's correct!</p>`;
     return feedbackString;
   }
   else {
-    let feedbackString = `<p>You chose ${answerChoice}</p><p>The correct answer was ${correctAnswer}</p>`;
+    let feedbackString = `
+    <p>You said ${answerChoice}</p>
+    <p>The correct answer was ${correctAnswer}</p>`;
     return feedbackString;
   }
 }
@@ -244,7 +221,7 @@ function generateAnswerFeedback() {
 function generateQuizEndString() {
   // generate main html content for the quiz results
   return `
-  <div class="end-content-wrapper">
+  <div class="flex-wrapper">
     <p>Thanks for taking the quiz!</p>
     <p>How did you do?</p>
     <p>${store.score} / ${store.questions.length * 5}</p>
