@@ -419,6 +419,7 @@ function handleQuizNextQuestion() {
 function handleQuizRestart() {
   //this function will handle the quiz when the 'try again' button is pressed
   $('main').on('click', '#reset-button', function(event) {
+    console.log('quiz reset');
     event.preventDefault();
     setStartConditions();
     renderQuiz();
