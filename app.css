@@ -133,6 +133,10 @@ input {
   margin-right: 10px;
 }
 
+.score {
+  margin-bottom: 0;
+}
+
 
 /* *** MEDIA QUERIES *** */
 

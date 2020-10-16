@@ -152,7 +152,7 @@ function generateQuizQuestionString(indexAndObject) {
         </ul>
       </form>
       <button type="button" id="validate-button">Check Answer</button>
-      <h3>${store.score} pts</h3>
+      <h3 class="score">${store.score} pts</h3>
     </div>
   </div>`;
 }
@@ -183,7 +183,7 @@ function generateQuizValidateString(indexAndObject) {
         ${generateAnswerFeedback()}
       </form>
       ${generateButtonType()}
-      <h3>${store.score} pts</h3>
+      <h3 class="score">${store.score} pts</h3>
     </div>
   </div>`;
 }
