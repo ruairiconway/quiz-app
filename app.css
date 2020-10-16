@@ -8,32 +8,59 @@
 */
 
 /* Color Palette
-Rich Black : #0A100D
-Sage : #B9BAA3
+Dark    #383D3B
+light   #EFF9F0
 */
-
 
 /* *** TYPESTYLES *** */
 
+@import url('https://fonts.googleapis.com/css2?family=Piazzolla:wght@600&family=Source+Sans+Pro&display=swap');
+/*
+font-family: 'Piazzolla', serif;
+font-family: 'Source Sans Pro', sans-serif;
+*/
+
 h1 {
+  font-family: 'Piazzolla', serif;
   margin: 0;
   padding: 20px 0;
-  color: #FFFFFF;
+  color: #EFF9F0;
+  letter-spacing: 0.3px;
 }
 
 h2 {
+  font-family: 'Piazzolla', serif;
   margin: 0 0 20px 0;
   padding: 5px;
+  color: #383D3B;
+  letter-spacing: 0.3px;
+}
+
+h3 {
+  font-family: 'Piazzolla', serif;
+  margin: 0 0 20px 0;
+  padding: 5px;
+  font-size: 1.2em;
+  text-align: center;
+  color: #383D3B;
+  letter-spacing: 0.3px;
 }
 
 p {
+  font-family: 'Source Sans Pro', sans-serif;
   margin: 0 0 20px 0;
   padding: 5px;
   text-align: center;
+  letter-spacing: 0.3px;
+}
+
+button, label {
+  font-family: 'Source Sans Pro', sans-serif;
+  letter-spacing: 0.3px;
 }
 
 
-/* *** FLEX STRUCTURE *** */
+/* *** STRUCTURE *** */
 
 body {
   height: 100vh;
@@ -45,7 +72,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #0A100D;
+  background-color: #383D3B;
 }
 
 main {
@@ -53,14 +80,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.start-content-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 20px;
+  background-color: #EFF9F0;
 }
 
 .flex-wrapper {
@@ -77,14 +97,6 @@ main {
   align-items: center;
 }
 
-.end-content-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 20px;
-}
-
 form {
   display: flex;
   flex-direction: column;
@@ -94,7 +106,7 @@ form {
 }
 
 .question { /* stops quiz from jumping when question breaks over multiple lines */
-  height: 25px;
+  min-height: 35px;
 }
 
 
@@ -102,7 +114,9 @@ form {
 
 button {
   margin: 0 0 20px 0;
-  padding: 2px 5px;
+  padding: 5px 10px;
+  background-color: #383D3B;
+  color: #EFF9F0;
 }
 
 ul {
