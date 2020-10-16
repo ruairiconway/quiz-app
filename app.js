@@ -134,7 +134,7 @@ function generateQuizStartString() {
   // Generate main html content for the quiz landing page
   return `
   <div class="flex-wrapper">
-    <h2>Ready when you are!</h2>
+    <h2>Test Your Knowledge!</h2>
     <button type="button" id="start-button">Start Quiz</button>
   </div>`;
 }
@@ -144,7 +144,7 @@ function generateQuizQuestionString(indexAndObject) {
   return `
   <div class="flex-wrapper">
     <div class="quiz-content-wrapper">
-      <p>${indexAndObject.index} / ${store.questions.length}</p>
+      <h3>${indexAndObject.index} / ${store.questions.length}</h3>
       <p class="question">${indexAndObject.object.question}</p>
       <form>
         <ul>
@@ -152,7 +152,7 @@ function generateQuizQuestionString(indexAndObject) {
         </ul>
       </form>
       <button type="button" id="validate-button">Check Answer</button>
-      <p>${store.score} pts</p>
+      <h3>${store.score} pts</h3>
     </div>
   </div>`;
 }
@@ -177,13 +177,13 @@ function generateQuizValidateString(indexAndObject) {
   return `
   <div class="flex-wrapper">
     <div class="quiz-content-wrapper">
-      <p>${indexAndObject.index} / ${store.questions.length}</p>
+      <h3>${indexAndObject.index} / ${store.questions.length}</h3>
       <p class="question">${indexAndObject.object.question}</p>
       <form>
         ${generateAnswerFeedback()}
       </form>
       ${generateButtonType()}
-      <p>${store.score} pts</p>
+      <h3>${store.score} pts</h3>
     </div>
   </div>`;
 }
@@ -224,7 +224,7 @@ function generateQuizEndString() {
   <div class="flex-wrapper">
     <p>Thanks for taking the quiz!</p>
     <p>How did you do?</p>
-    <p>${store.score} / ${store.questions.length * 5}</p>
+    <h3>${store.score} / ${store.questions.length * 5}</h3>
     <button type="button" id="reset-button">Try Again</button>
   </div>`
 }
