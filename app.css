@@ -7,14 +7,134 @@
   *
 */
 
+/* Color Palette
+Rich Black : #0A100D
+Sage : #B9BAA3
+*/
+
+
+/* *** TYPESTYLES *** */
+
+h1 {
+  margin: 0;
+  padding: 20px 0;
+  color: #FFFFFF;
+}
+
+h2 {
+  margin: 0 0 20px 0;
+  padding: 5px;
+}
+
+p {
+  margin: 0 0 20px 0;
+  padding: 5px;
+  text-align: center;
+}
+
+
+/* *** FLEX STRUCTURE *** */
+
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0A100D;
+}
+
+main {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.start-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.flex-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.quiz-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.end-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 125px;
+}
+
+.question { /* stops quiz from jumping when question breaks over multiple lines */
+  height: 25px;
+}
+
+
+/* *** DESIGN *** */
+
+button {
+  margin: 0 0 20px 0;
+  padding: 2px 5px;
+}
+
 ul {
   list-style-type: none;
+  margin-top: 0;
+  padding: 0;
 }
 
-.correct-answer {
-  color: green;
+li {
+  margin: 7px 0;
 }
 
-.incorrect-answer {
-  color: red;
+input {
+  margin-right: 10px;
+}
+
+
+/* *** MEDIA QUERIES *** */
+
+@media screen and (min-width: 600px) {
+
+  body {
+    height: 100vh;
+    flex-direction: row;
+  }
+
+  header {
+    flex: 1;
+  }
+
+  main {
+    flex: 1;
+  }
+
 }
