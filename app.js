@@ -133,10 +133,10 @@ let store = {
 function generateQuizStartString() {
   // Generate main html content for the quiz landing page
   return `
-    <div class="start-content-wrapper">
-      <h2>Ready when you are!</h2>
-      <button type="button" id="start-button">Start Quiz</button>
-    </div>`;
+  <div class="start-content-wrapper">
+    <h2>Ready when you are!</h2>
+    <button type="button" id="start-button">Start Quiz</button>
+  </div>`;
 }
 
 function generateQuizQuestionString(indexAndObject) {
@@ -404,4 +404,5 @@ function handleQuizRestart() {
   });
 }
 
+// runs even handlers on page load
 $(handleQuiz);
