@@ -381,5 +381,5 @@ function handleQuizRestart() {
   });
 }
 
-// runs even handlers on page load
+// runs event handlers on page load
 $(handleQuiz);
