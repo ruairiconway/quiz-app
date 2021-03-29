@@ -1,4 +1,4 @@
-# Thinkful - Interactive Web App Module
+# Interactive Web App Module
 
 
 ## Quiz App Build
@@ -11,31 +11,6 @@ Using provided html boilerplate and js object array, I built out a quiz app whic
 **Wireframe**
 - Code :: https://github.com/ruairiconway/quiz-app-wireframe
 - Live :: https://ruairiconway.github.io/quiz-app-wireframe/
-
-### Exercise Requirements:
-**UX**
-- The starting screen should have a button that users can click to start the quiz.
-- Users should be prompted through a series of at least 5 multiple choice questions that they can answer.
-- Users should be asked questions 1 after the other.
-- Users should only be prompted with 1 question at a time.
-- Users should not be able to skip questions.
-- Users should also be able to see which question they're on (for instance, "7 out of 10") and their current score ("5 correct, 2 incorrect").
-- Upon submitting an answer, users should:
-1. receive textual feedback about their answer. If they were incorrect, they should be told the correct answer.
-2. be moved onto the next question (or interact with an element to move on).
-- Users should be shown their overall score at the end of the quiz. In other words, how many questions they got right out of the total questions asked.
-- Users should be able to start a new quiz.
-
-**Technical**
-- Include a render() function, that conditionally regenerates the view each time the store is updated.
-- Include single-purpose template generation functions.
-- Include single-purpose event handler functions.
-- Call all functions from a jQuery initializing function.
-- NOT add additional HTML elements to the boilerplate code's index.html file (you may add attributes, e.g., classes and ids, to the existing HTML elements, or link stylesheets or additional scripts if necessary).
-- Render answer choices in a form>.
-- Use semantic HTML, along with CSS and jQuery.
-- Follow a11y best practices.
-- Be fully usable by keyboard.
 
 
 ### Biology Pub Quiz Question List
