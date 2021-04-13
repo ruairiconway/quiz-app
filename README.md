@@ -8,10 +8,10 @@ Using provided html boilerplate and js object array, I built out a quiz app whic
 - Code :: https://github.com/ruairiconway/quiz-app
 - Live :: https://ruairiconway.github.io/quiz-app/
 
-**Wireframe**
-- Code :: https://github.com/ruairiconway/quiz-app-wireframe
-- Live :: https://ruairiconway.github.io/quiz-app-wireframe/
-
+|   |   |
+| --- | --- |
+| ![Image](./assets/start.png) | ![Image](./assets/question.png) |
+| ![Image](./assets/result.png) | ![Image](./assets/result.png) |
 
 ### Biology Pub Quiz Question List
 NO PEEKING BEFORE YOU TAKE IT!
