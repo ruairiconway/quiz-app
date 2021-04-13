@@ -111,21 +111,6 @@ let store = {
   score: 0
 };
 
-/**
- * 
- * Technical requirements:
- * 
- * Your app should include a render() function, that regenerates the view each time the store is updated. 
- * See your course material and access support for more details.
- *
- * NO additional HTML elements should be added to the index.html file.
- *
- * You may add attributes (classes, ids, etc) to the existing HTML elements, or link stylesheets or additional scripts if necessary
- *
- * SEE BELOW FOR THE CATEGORIES OF THE TYPES OF FUNCTIONS YOU WILL BE CREATING 👇
- * 
- */
-
 /********** TEMPLATE GENERATION FUNCTIONS **********/
 
 // These functions return HTML templates
@@ -233,7 +218,6 @@ function generateQuizEndString() {
 
 function renderQuiz() {
   // Conditionally replaces the contents of the <main> tag based on the state of the store
-  console.log('rendered quiz');
   if (store.quizStarted === false) {
     // start condition
     if (store.submittingAnswer === false) {
@@ -300,7 +284,6 @@ function currentQuestion() {
 
 function validateSubmission() {
   // Confirms an input is submitted and triggers grading
-  console.log('validate submission');
   let answerOptions = $('input:radio[name=answers]');
   let answerChoice = $('input[name="answers"]:checked').val();
   let questionIndex = store.questionNumber;
@@ -322,12 +305,10 @@ function validateSubmission() {
 function nextQuestion() {
   // iterates through store questions and triggers end condition on last question
   if (store.questionNumber + 1 < store.questions.length) {
-    console.log('next question');
     store.questionNumber += 1;
     setPromptConditions();
   }
   else if (store.questionNumber + 1 === store.questions.length) {
-    console.log('quiz end')
     setEndConditions();
   }
 }
@@ -347,7 +328,6 @@ function handleQuiz() {
 function handleQuizStart() {
   //this function will handle the quiz when the start button is pressed
   $('main').on('click', '#start-button', function(event) {
-    console.log('quiz started');
     event.preventDefault();
     setPromptConditions();
     renderQuiz();
@@ -374,7 +354,6 @@ function handleQuizNextQuestion() {
 function handleQuizRestart() {
   //this function will handle the quiz when the 'try again' button is pressed
   $('main').on('click', '#reset-button', function(event) {
-    console.log('quiz reset');
     event.preventDefault();
     setStartConditions();
     renderQuiz();
